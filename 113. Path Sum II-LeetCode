@@ -1,0 +1,39 @@
+// Just Use of Bracktracking and vector
+
+class Solution {
+public:
+    
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        
+        vector<vector<int>> aResult;
+        if (root == NULL) {
+            return aResult;
+        }
+        
+        vector<int> aRunningList;
+        pathSumHelper(aResult, aRunningList, root, sum);
+        
+        return aResult;
+        
+    }
+    
+    void pathSumHelper(vector<vector<int>> &pResult, vector<int> &pRunningList, TreeNode* root, int sum) {
+        
+        if (root == NULL) {
+            return;
+        }
+        
+        pRunningList.push_back(root->val);
+        
+        sum -= root->val;
+        
+        if (sum == 0 && root->left == NULL && root->right == NULL) {
+            pResult.push_back(pRunningList);
+        }
+        
+        pathSumHelper(pResult, pRunningList, root->left, sum);
+        pathSumHelper(pResult, pRunningList, root->right, sum);
+        
+        pRunningList.pop_back();   
+    }  
+};
