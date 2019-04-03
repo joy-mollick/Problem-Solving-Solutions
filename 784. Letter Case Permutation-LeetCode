@@ -1,0 +1,33 @@
+
+
+class Solution {
+public:
+    void permu(vector<string>&res,string temp,string s,int start)
+{
+    if(start==s.size())
+    {
+         res.push_back(temp);
+        return;
+    }
+    if(s[start]>='0'&&s[start]<='9')
+    {
+        temp=temp+s[start];
+        permu(res,temp,s,start+1);
+    }
+    else
+    {
+        char c=(tolower(s[start]));
+        permu(res,temp+c,s,start+1);
+         c=(toupper(s[start]));
+        permu(res,temp+c,s,start+1);
+    }
+
+}
+    vector<string> letterCasePermutation(string S) {
+        
+        vector<string>res;
+        string temp="";
+        permu(res,temp,S,0);
+        return res;
+    }
+};
