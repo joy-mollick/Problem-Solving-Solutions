@@ -1,0 +1,40 @@
+// Just Use map Conatiner To Hold The Value Of Every Level
+
+class Solution {
+public:
+    int mx=0;
+    map<int,vector<int>>m;
+    void pre(TreeNode* root,int lev)
+    {
+        mx=max(lev,mx);
+        m[lev].push_back(root->val);
+        if(root->left!=NULL)
+        {
+            pre(root->left,lev+1);
+        }
+        if(root->right!=NULL)
+        {
+             pre(root->right,lev+1);
+        }
+    }
+    vector<int> largestValues(TreeNode* root) {
+        vector<int>p;
+        if(root==NULL)
+        {
+            return p;
+        }
+        
+        int ans=0;
+        pre(root,0);
+        for(int i=0;i<=mx;i++)
+        {
+            ans=INT_MIN;
+            for(int j=0;j<m[i].size();j++)
+            {
+                ans=max(ans,m[i][j]);
+            }
+            p.push_back(ans);
+        }
+        return p;
+    }
+};
