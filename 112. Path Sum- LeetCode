@@ -1,0 +1,18 @@
+// Just One Kind Up Recursion 
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        if (root == NULL) { return false; }
+        sum -= root->val;
+        
+        //We found a leaf w/ correct sum...
+        if (root->left == NULL && root->right == NULL && sum == 0) { return true; }
+        
+        //Try L an R
+        if (hasPathSum(root->left, sum)) { return true; }
+        if (hasPathSum(root->right, sum)) { return true; }
+        
+        return false;
+    }
+};
