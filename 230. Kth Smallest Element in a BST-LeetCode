@@ -1,0 +1,25 @@
+
+
+class Solution {
+public:
+    vector<int>v;
+    void preorder(TreeNode* root)
+    {
+        v.push_back(root->val);
+         if(root->left!=NULL)
+        {
+            preorder(root->left);
+        }
+        
+        if(root->right!=NULL)
+        {
+            preorder(root->right);
+        }
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        preorder(root);
+        sort(v.begin(),v.end());
+        return v[k-1];
+    }
+};
