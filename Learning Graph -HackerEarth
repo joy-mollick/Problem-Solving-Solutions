@@ -1,0 +1,56 @@
+
+// Just Think about Corner Cases That When The Same Values Will be appeared then , according to indices U have to arrange those same values in ascending order .
+// I used here a vector pair and a custom function
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+bool myfunc(pair<int,int> &a,pair<int,int> &b)
+{
+if(a.second==b.second)
+return a.first>b.first;
+return a.second>b.second;
+}
+
+int main()
+
+{
+    int n,m1,k,val,u,v;
+    cin>>n>>m1>>k;
+    vector<int>adj[n+1];
+    map<int,int>m;
+    map<int,int>va;
+    int count=1;
+    for(int j=1;j<=n;j++)
+    {
+        cin>>val;
+        m[j]=val;
+        va[val]=j;
+    }
+    while(m1--)
+    {
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        vector<pair<int,int> > vec;
+        if(adj[i].size()<k)
+        {
+            cout<<"-1"<<endl;
+        }
+        else{
+            for(int f=0;f<adj[i].size();f++)
+            {
+                vec.push_back(make_pair(adj[i][f],m[adj[i][f]]));
+            }
+            sort(vec.begin(),vec.end(),myfunc);
+            cout<<vec[k-1].first<<endl;
+        }
+    }
+    
+    return 0;
+}
