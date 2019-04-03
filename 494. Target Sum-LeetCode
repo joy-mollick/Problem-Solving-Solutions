@@ -1,0 +1,23 @@
+// Normal Recursive
+
+class Solution {
+public:
+    int count=0;
+    void countagain(vector<int>&nums,int S,int i,int sum)
+    {
+        if(i==nums.size())
+        {
+            if(sum==S){
+                count++;
+            }
+             return;
+        }
+        
+        countagain(nums,S,i+1,sum+nums[i]);
+        countagain(nums,S,i+1,sum-nums[i]);
+    }
+    int findTargetSumWays(vector<int>& nums, int S) {
+        countagain(nums,S,0,0);
+        return count;
+    }
+};
