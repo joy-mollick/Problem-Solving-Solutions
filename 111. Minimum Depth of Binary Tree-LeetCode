@@ -1,0 +1,32 @@
+// Just Use Traversing By Recursively 
+
+class Solution {
+public:
+    int ans=INT_MAX;
+    void max(TreeNode* root,int lev)
+    {
+         if(root->left==NULL&&root->right==NULL)
+        {
+             if(lev<ans)
+             {
+                 ans=lev;
+             }
+        }
+        if(root->left!=NULL)
+        {
+            max(root->left,lev+1);
+        }
+        if(root->right!=NULL)
+        {
+            max(root->right,lev+1);
+        }
+}
+    int minDepth(TreeNode* root) {
+        if(root==NULL)
+        {
+            return 0;
+        }
+        max(root,0);
+        return ans+1;
+    }
+};
