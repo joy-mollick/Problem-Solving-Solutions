@@ -1,0 +1,29 @@
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+   void tutil(vector<int>&curr,int k,int target,int count,int index)
+   {
+       if(target==0 && count==k)
+       {
+           ans.push_back(curr);
+       }
+       if(target<0)
+           return; 
+       if(count>k)
+           return;
+       
+       for(int i=index;i<=9;i++)
+       {
+           curr.push_back(i);
+           tutil(curr,k,target-i,count+1,i+1);
+           curr.pop_back();
+       }
+           
+   }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int>curr;
+        tutil(curr,k,n,0,1);
+        return ans;
+    }
+};
