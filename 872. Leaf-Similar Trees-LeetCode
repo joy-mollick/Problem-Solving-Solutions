@@ -1,0 +1,49 @@
+
+
+
+class Solution {
+public:
+    vector<int>v1;
+    vector<int>v2;
+    void inder(TreeNode* root)
+    {
+         if(root->left==NULL&&root->right==NULL){
+        v2.push_back(root->val);
+        }
+        if(root->left!=NULL)
+        {
+            inder(root->left);
+        }
+        if(root->right!=NULL)
+        {
+            inder(root->right);
+        }
+    }
+    void order(TreeNode* root)
+    {
+        if(root->left==NULL&&root->right==NULL){
+        v1.push_back(root->val);
+        }
+        if(root->left!=NULL)
+        {
+            order(root->left);
+        }
+        if(root->right!=NULL)
+        {
+            order(root->right);
+        }
+    }
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        order(root1);
+        inder(root2);
+
+        for(int i=0;i<min(v2.size(),v1.size());i++)
+        {
+            if(v1[i]!=v2[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
