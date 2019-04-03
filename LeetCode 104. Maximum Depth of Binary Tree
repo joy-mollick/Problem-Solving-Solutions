@@ -1,0 +1,28 @@
+//Just Traverse recursively and increase one to the level 
+
+class Solution {
+public:
+    int ans=0;
+    void max(TreeNode* root,int lev)
+    {
+         if(lev>ans)
+        {
+            ans=lev;
+        }
+        if(root->left!=NULL)
+        {
+            max(root->left,lev+1);
+        }
+        if(root->right!=NULL)
+        {
+            max(root->right,lev+1);
+        }
+    }
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        
+       max(root,0);
+        return ans+1;
+    }
+};
