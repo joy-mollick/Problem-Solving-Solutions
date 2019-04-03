@@ -1,0 +1,30 @@
+
+
+class Solution {
+public:
+    set<int>v;
+    void preorder(TreeNode* root)
+    {
+        v.insert(root->val);
+         if(root->left!=NULL)
+        {
+            preorder(root->left);
+        }
+        
+        if(root->right!=NULL)
+        {
+            preorder(root->right);
+        }
+    }
+    
+    int findSecondMinimumValue(TreeNode* root) {
+        preorder(root);
+        if(v.size()<2)
+        {
+            return -1;
+        }
+        set<int>::iterator iter=v.begin();
+        iter++;
+        return (*iter);
+    }
+};
