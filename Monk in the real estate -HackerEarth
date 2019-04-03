@@ -1,0 +1,25 @@
+/* Though It is a graph problem . It will be solved by using just set*/
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int cities,test;
+    cin>>test;
+    while(test--){
+    cin>>cities;
+    set<int>s;
+    int a,b;
+    while(cities--)
+    {
+        cin>>a>>b;
+        s.insert(a);
+        s.insert(b);
+    }
+    cout<<s.size()<<endl;
+    }
+    return 0;
+}
