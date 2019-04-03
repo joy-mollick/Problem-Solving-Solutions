@@ -1,0 +1,36 @@
+// Just Use Simple Backtracking 
+
+class Solution {
+private:
+    vector<string> res;
+    vector<string> stk;
+    vector<int>v;
+    
+    void traverse(TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+        
+        if (root->left == nullptr && root->right == nullptr) {
+            string path;
+            for (auto& s : stk) {
+                path += s;
+            }
+            path += to_string(root->val);
+            res.push_back(path);
+            return;
+        }
+        
+        stk.push_back(to_string(root->val) + "->");
+        v.push_back(root->val);
+        traverse(root->left);
+        traverse(root->right);
+        stk.pop_back();
+        v.pop_back();
+    }
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        traverse(root);
+        return res;
+    }
+};
