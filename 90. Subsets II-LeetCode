@@ -1,0 +1,44 @@
+
+
+class Solution {
+public:
+    
+    int n;
+    vector<int>sus;
+    void push(vector<vector<int>>& sums,int A[],int i,vector<int>& nums)
+    {
+        for(int j=0;j<i;j++)
+        {
+            if(A[j]==1)
+            {
+                sus.push_back(nums[j]);
+            }
+        }
+        vector<vector<int>>::iterator it=find(sums.begin(),sums.end(),sus);
+        if(it==sums.end()){
+        sums.push_back(sus);
+        }
+        
+        sus.clear();
+    }
+    void solve(vector<vector<int>>& sums,int A[],int i,int n,vector<int>& nums)
+    {
+        if(i==n)
+        {
+            push(sums,A,n,nums);
+            return;
+        }
+        A[i]=0;
+        solve(sums,A,i+1,n,nums);
+        A[i]=1;
+        solve(sums,A,i+1,n,nums);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>>sums;
+        n=nums.size();
+        int A[n]={0};
+        sort(nums.begin(),nums.end());
+        solve(sums,A,0,n,nums);
+        return sums;
+    }
+};
