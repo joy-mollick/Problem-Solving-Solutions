@@ -1,0 +1,34 @@
+
+
+class Solution {
+public:
+    int sum=0;
+    void pre(TreeNode* root,int n)
+    {
+        if(n==0)
+        {
+            if(root->left==NULL&&root->right==NULL){
+            sum=sum+(root->val);
+            }
+        }
+          if(root->left!=NULL)
+        {
+            
+            pre(root->left,0);
+        }
+        if(root->right!=NULL)
+        {
+            pre(root->right,1);
+        }
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        if(root->left==NULL&&root->right==NULL)
+        return 0;
+        
+        int n=root->val;
+      pre(root,0);
+        return sum;
+    }
+};
