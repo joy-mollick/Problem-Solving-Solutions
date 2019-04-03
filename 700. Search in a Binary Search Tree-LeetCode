@@ -1,0 +1,27 @@
+
+
+class Solution {
+public:
+    TreeNode* node=NULL;
+    
+    void order(TreeNode *root,int value)
+    {
+        if(root->val==value)
+        {
+            node=root;
+            return;
+        }
+        if(root->right!=NULL)
+        {
+            order(root->right,value);
+        }
+        if(root->left!=NULL)
+        {
+            order(root->left,value);
+        }
+    }
+    TreeNode* searchBST(TreeNode* root, int val) {
+        order(root,val);
+        return node;
+    }
+};
