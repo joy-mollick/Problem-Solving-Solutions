@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+int c=0,d=0;
+int bar=0;
+vector<int>v[17];
+vector<int>rev[17];
+stack<int>s;
+void dfs(int u,bool visited[])
+{
+    visited[u]=true;
+    vector<int>::iterator it;
+    for( it=v[u].begin();it!=v[u].end();it++)
+    {
+        if(!visited[*it])
+        {
+            dfs((*it),visited);
+        }
+    }
+    //cout<<u<<endl;
+    s.push((u));
+}
+
+void dfs2(int u,bool nwvisited[])
+{
+    bar++;
+    nwvisited[u]=true;
+    vector<int>::iterator it;
+    for( it=rev[u].begin();it!=rev[u].end();it++)
+    {
+        if(!nwvisited[*it])
+        {
+            dfs2((*it),nwvisited);
+        }
+    }
+}
+int main()
+
+{
+    int m;
+    int n,u,t;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        cin>>u>>t;
+        v[u].push_back(t);
+        rev[t].push_back(u);
+    }
+    bool *visited=new bool[n+1];
+    for(int i=1;i<=n;i++)
+    {
+        visited[i]=false;
+    }
+    for(int i=1;i<=n;i++)
+    {
+        bar=1;
+        if(!visited[i]){
+        dfs(i,visited);}
+        //bar++;
+    }
+    bool *nwvisited=new bool[n+1];
+    for(int i=1;i<=n;i++)
+    {
+        nwvisited[i]=false;
+    }
+    while(!s.empty())
+    {
+        int b=s.top();
+        //cout<<"stack"<<b<<endl;
+        s.pop();
+        bar=0;
+        if(!nwvisited[b])
+        {
+            dfs2(b,nwvisited);
+        }
+        if(bar%2==0)
+        {
+            c=c+bar;
+        }
+        else
+        {
+            d=d+bar;
+        }
+        //cout<<bar<<endl;
+    }
+    cout<<(d-c)<<endl;
+    return 0;
+}
