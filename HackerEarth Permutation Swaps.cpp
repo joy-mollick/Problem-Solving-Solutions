@@ -1,3 +1,11 @@
+/*
+U have option to make swap of some given indices .Now Will u be able to make swaps to make second array from first array ?  
+if (1,2) and (2,5) (2, 4) are allowed swapping indices then u can see that one(1) index element can go four(4) index also by double swapping,beacuse these are connected components!!
+That means all given indices should be taken as a graph .Then take all elements of connected components and compare connected elements of arr1 to arr2 
+Obviously it should be same for all element . Now go and code 
+*/
+
+
 #include<bits/stdc++.h>
 
 using namespace std;
