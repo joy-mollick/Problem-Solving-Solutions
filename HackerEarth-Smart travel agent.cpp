@@ -1,3 +1,14 @@
+/* Here exactly , U have to find out the route from s to d where maximum peaople can travel 
+( minimum people capacity of this route ) , 
+because minimum number of trips are needed ,when maximum people can travel then trips will be reduced !!
+Now , use dijkstra slightly changed like as we will take the maximum capacity edges keep the track of minimum of this route 
+and make this distance of the destination (d ) and keep the track of parent of the nodes .
+By traversing parent from destination we will reach our source ... 
+Here all time one extra man who will guide the travellers .Keep this mind .My normal code 
+*/
+
+
+
 #include<bits/stdc++.h>
 
 using namespace std;
