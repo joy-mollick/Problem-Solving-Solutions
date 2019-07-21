@@ -2,34 +2,37 @@
 
 using namespace std;
 
-typedef pair< int ,int>pii;
-const int mx = 1e6;
-bool marked[mx]={false};
-unsigned long long mncst=0;
-int removedgecst=0;
+const int mx=1e5+1;
 
-void prim_algorithm(int x,vector<pii>adj[])
+typedef pair<long,long>pii;
+
+bool vis[mx]={false};
+long dist[mx];
+vector<pii>adj[mx];
+priority_queue<pii,vector<pii>,greater<pii> > pq;
+
+void dijkstra()
 {
-    priority_queue<pii>q; // increasing order
-    pii p;
-    q.push(make_pair(0,x));
-    while(!q.empty())
+
+    while(!pq.empty())
     {
-        p=q.top();
-        q.pop();
-        int  x=p.second;
-        if(marked[x]==true){
-            mncst+=((unsigned long long)(p.first));
-        continue;}
+        int u=pq.top().second;
+        pq.pop();
+        if(vis[u])
+        continue;
 
-        marked[x]=true;
-
-        for(int i=0;i<adj[x].size();i++)
+        vis[u]=true;
+        vector<pii>::iterator it;
+        for(it=adj[u].begin();it!=adj[u].end();it++)
         {
-            int y=(int)(adj[x][i].second);
-            if(marked[y]==false)
+            int v=(*it).first;
+            int weight =(*it).second;
+            //cout<<v<<" "<<dist[v]<<" "<<(dist[u]+weight)<<endl;
+            if( (dist[v]>dist[u]+weight))
             {
-                q.push((adj[x][i]));
+                dist[v]=dist[u]+weight;
+                pq.push(make_pair(dist[v],v));
+                //cout<<dist[v]<<endl;
             }
         }
     }
@@ -38,33 +41,39 @@ void prim_algorithm(int x,vector<pii>adj[])
 
 int main()
 {
-    int t;
-    cin>>t;
-    while(t--){
-    int N,M,U,V,W;
-    unsigned long long K;
-    cin>>N>>M;
-    vector<pii>adj[N+1];
-    while(M--)
+    int n,m,k,q;
+    cin>>n>>m>>k>>q;
+    int u,v,w;
+    while(m--)
     {
-        cin>>U>>V;
-        adj[U].push_back(make_pair(abs(U-V),V));
-        adj[V].push_back(make_pair(abs(V-U),U));
+        cin>>u>>v>>w;
+        adj[u].push_back(make_pair(v,w));
+        adj[v].push_back(make_pair(u,w));
     }
-    unsigned long long count=0;
-    for(int i=1;i<=N;i++)
+    int x;
+     for(int i=1;i<=n;i++)
     {
-        if(marked[i]==false)
+
+        dist[i]=1000000007;
+    }
+    while(k--)
+    {
+        cin>>x;
+        pq.push(make_pair(0,x)); // exma centres
+        dist[x]=0;
+    }
+    dijkstra();
+    while(q--)
+    {
+        cin>>x;
+        if(dist[x]==1000000007)
         {
-            prim_algorithm(i,adj);
-            count++;
+            //cout<<"-1"<<endl;
         }
-    }
-    unsigned long long  cost=mncst;
-    mncst=0;
-    cost=(cost+(count-1));
-    cout<<(cost)<<endl;
-    memset(marked,false,sizeof(marked));
+        else
+        {
+            cout<<dist[x]<<endl;
+        }
     }
     return 0;
 }
