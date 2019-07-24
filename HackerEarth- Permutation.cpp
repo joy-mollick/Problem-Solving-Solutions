@@ -2,44 +2,59 @@
 
 using namespace std;
 
-int main()
+int finally_visited[102];
+int ans;
+int arr[102];
+vector<int>adj[102];
+bool vis[102];
+void dfs(int index,bool*vis)
 {
-    int n,a;
+    vis[index]=true;
+    if(!finally_visited[index]) ans =min(arr[index],ans); // if that index has been replaced already by minimum number of that , so leave it
+
+    for(int i=0;i<adj[index].size();i++)
+    {
+        if(!vis[adj[index][i]])
+        {
+            dfs(adj[index][i],vis);
+        }
+    }
+}
+
+int main()
+
+{
+
+    int n;
     cin>>n;
-    string asol="";
+    int position[n+1];
     for(int i=0;i<n;i++)
     {
-        cin>>a;
-        asol+=(a+'0');
+        cin>>arr[i];
+        position[arr[i]]=i; // taking position of a number !!
     }
-
-    string our_destination=asol;
-    sort(our_destination.begin(),our_destination.end());
-    //our_destination is our destination where we have to reach
-    map<string,int>m;
-    m[asol]=0;//it already given , so to reach it 0 operation
-    queue<string>q;
-    q.push(asol);// we will start from this given input
-    while(!q.empty())
+    char c;
+    for(int i=0;i<n;i++)
     {
-        string prev=q.front();
-        q.pop();
-        if(prev==our_destination)
+        for(int j=0;j<n;j++)
         {
-            cout<<m[prev]<<endl;
-            break;
-        }
-        for(int i=2;i<=n;i++)
-        {
-            string now=prev;
-            reverse(now.begin(),now.begin()+i);// we will reverse(first i)numbers
-            if(m.find(now)==m.end())// if it doesn't exist then we will operate over here
+            cin>>c;
+            if(c=='Y')
             {
-                m[now]=m[prev]+1;
-                q.push(now);//we will operate other reverse over this later ,so push into q
+                adj[i].push_back(j); // taking the indices which (i) may be replaced by j indices
             }
         }
     }
+    memset(finally_visited,false,sizeof(finally_visited));
+    for(int i=0;i<n;i++)
+    {
+        memset(vis,false,sizeof(vis));
 
+        ans=INT_MAX;
+        dfs(i,vis); // passing index and visited array .
+        finally_visited[position[ans]]=true; // that index has been replaced already by minimum number of that .so finally_visited !!
+        cout<<ans<<" "; // printing ans , minimum number of that index .
+    }
+    cout<<endl;
     return 0;
 }
