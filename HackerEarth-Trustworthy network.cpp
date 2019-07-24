@@ -1,3 +1,14 @@
+/*
+First One is , this is directional edge given . Now , when u will go from source ( s) to destination (e) . 
+Suppose u have gone such path ( s -> u -> v-> e ) now total cost will be , 
+when u will go from s to u , cost[s][u] and (for acknowledging ) cost of back from u to s cost[u][s] ,
+for only (s->u)  cost[s][u] + cost[u][s]  !!  Now for , ( u->v ) cost[u][v] + cost[v][u] !! Such as ......
+cost[s][u] + cost[u][s] + cost[u][v] + cost[v][u] +cost[v][e]+cost[e][v] will be our answer . 
+Answer should be minimized . We have to use floyd warshall algorithm to find shortest path of any pair . 
+Then after doing this,make the cost of every graph[u][v] to graph[u][v] + dist[v][u],where dist has been found by floyd wrshall .
+Now each graph[u][v] holds the value of graph[u][v] itself and dist[v][u] summation ...........
+Now run again floyd warshall to find shortest path from source to destination ................... 
+*/
 #include<bits/stdc++.h>
 
 using namespace std;
