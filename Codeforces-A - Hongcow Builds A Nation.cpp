@@ -47,7 +47,7 @@ int main()
     {
         count_connected=0;
         dfs(special[i]);
-        max_connected=max(count_connected,max_connected);
+        max_connected=max(count_connected,max_connected);// keeping maximum connected components size which will be added to nonspecial disconnected components 
         total_connected+=count_connected; // total summation of connected components
         total_pair_edges+=(count_connected*(count_connected-1))/2;// summation of every coonected components pairs edges
     }
