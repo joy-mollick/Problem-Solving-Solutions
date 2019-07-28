@@ -7,37 +7,28 @@ const int mx=1e5+1;
 vector<pair<int,int> >adj[mx];
 bool vis[mx];
 vector<int>ans;
-stack<int>s;
-int parent[mx];
 
-void dfs(int u)
+void dfs(int u,int prev)
 {
-   vis[u]=true;
    for(int i=0;i<adj[u].size();i++)
    {
        int v=adj[u][i].first;
        int id=adj[u][i].second;
-       if(!vis[v])
+       if(v==prev)
        {
-           if(id==2)
-           {
-               s.push(v);
-           }
-           parent[v]=u;
-           dfs(v);
+           continue; // for tree traversal , no need to use vis array , there is no back edge or cross edge
        }
+       dfs(v,u);
+       if(id==2)
+       {
+           if(!vis[v])
+           {
+               ans.push_back(v);
+               vis[v]=1;
+           }
+       }
+       vis[u]=vis[u]|| vis[v];
    }
-}
-
-void dfs2(int u)
-{
-    if(vis[u]) return;
-     vis[u]=true;
-     int v=parent[u];
-     if(v==u)
-        return;// root node(1) comes
-
-     dfs2(v);
 }
 
 int main()
@@ -54,23 +45,7 @@ int main()
         adj[v].push_back(make_pair(u,w));
     }
     memset(vis,false,sizeof(vis));
-    for(int i=1;i<=n;i++)
-    {
-        parent[i]=i;
-    }
-    dfs(1);// from one to all subtree
-    memset(vis,false,sizeof(vis));
-    vis[1]=true;
-    while(!s.empty())
-    {
-        int k=s.top();
-        if(!vis[k])
-        {
-            dfs2(k);
-            ans.push_back(k);
-        }
-        s.pop();
-    }
+    dfs(1,-1);// for 1 there is no prev node
     cout<<ans.size()<<endl;
     for(int l=0;l<ans.size();l++)
     {
