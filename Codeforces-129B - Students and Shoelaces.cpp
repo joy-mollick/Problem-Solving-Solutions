@@ -32,7 +32,7 @@ int main()
             p=edge[i];
             if((degrees[p.first]==1||degrees[p.second]==1) &&edge_vis[p]==false)
             {
-                v.push_back(p);
+                v.push_back(p); // these edge(student) will be kick out from the class
                 group=true;
             }
         }
@@ -40,7 +40,7 @@ int main()
         {
             degrees[v[j].first]--;
             degrees[v[j].second]--;
-            edge_vis[v[j]]=true;
+            edge_vis[v[j]]=true;// these edge has been removed by making it true
         }
         if(group==false) // that means there are no group else like we want ,so our task have been done
             break;
