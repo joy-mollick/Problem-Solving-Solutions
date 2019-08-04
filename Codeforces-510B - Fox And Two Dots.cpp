@@ -6,7 +6,7 @@ typedef pair<int,char> pi;
 
 bool vis[51][51];
 char graph[51][51];
-int dx[] = {1, -1, 0, 0};
+int dx[] = {1, -1, 0, 0}; // only left, right , up ,down are allowed here 
 int dy[] = {0, 0, 1, -1};
 int m,n;
 bool ok=false;
