@@ -79,8 +79,8 @@ int main()
         for(int j=1;j<=a;j++)
         {
             cin>>c;
-            if(i==1||c==n) resgraph[i][c]=1;
-            else resgraph[i][c]=10000;
+            if(i==1||c==n) resgraph[i][c]=1;//Only coming rout from 1 and entering to n should be different that's why 1
+            else resgraph[i][c]=10000;// Other all routes can be used by more than 1 , so this is infinity say any big number 
         }
     }
     fordFulker(1,n);
