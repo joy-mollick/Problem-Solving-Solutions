@@ -19,7 +19,7 @@
 
 using namespace std;
 
-const int mx=300005;
+const int mx=400005;
 
 vector<int>adj[mx];
 bool vis[mx];
