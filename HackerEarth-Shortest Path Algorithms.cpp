@@ -46,7 +46,7 @@ int main()
     cin>>N>>M;
     while(M--)
     {
-        cin>>u>>v>>w;
+        scanf("%d %d %d", &u, &v, &w); // scanf instead of cin
         adj[u].push_back(make_pair(v,w));
     }
     short_path(1,N);
